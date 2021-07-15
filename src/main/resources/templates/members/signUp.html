@@ -30,7 +30,7 @@
 </head>
 <body>
 
-<th:block th:replace="fragments/navbar :: nav"> navbar </th:block>
+<!--<th:block th:replace="fragments/navbar :: nav"> navbar </th:block>-->
 
 <div class="container">
 
@@ -45,7 +45,7 @@
         </div>
         <div style="margin: 10px;">
             <label for="password">비밀번호</label>
-            <input style="width: 200px; margin: auto;" type="text" id="password" class="form-control"
+            <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control"
                    th:field="*{password}">
         </div>
         <div style="margin: 10px;">
@@ -54,7 +54,10 @@
                    th:field="*{name}">
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 200px;">가입하기</button>
+        <hr>
+
+        <button type="submit" class="btn btn-primary" style="width: 200px; margin-top: 20px;">가입하기</button>
+        <button type="button" class="btn btn-primary" style="width: 200px; margin-top: 20px;" th:onclick="|location.href='@{/}'|">메인으로</button>
 
     </form>
 </div>

@@ -30,22 +30,29 @@
 </head>
 <body>
 
-<th:block th:replace="fragments/navbar :: nav"> navbar </th:block>
+<!--<th:block th:replace="fragments/navbar :: nav"> navbar </th:block>-->
 
 <div class="container">
 
     <div>로그인</div>
 
-    <div style="margin: 10px;">
-        <label for="loginId">로그인 ID</label>
-        <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control">
-    </div>
-    <div style="margin: 10px;">
-        <label for="password">비밀번호</label>
-        <input style="width: 200px; margin: auto;" type="text" id="password" class="form-control">
-    </div>
+    <form action="item.html" th:action th:object="${loginForm}" method="post">
 
-    <button type="button" class="btn btn-primary" style="width: 200px;">로그인</button>
+        <div style="margin: 10px;">
+            <label for="loginId">로그인 ID</label>
+            <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control"
+                   th:field="*{loginId}">
+        </div>
+        <div style="margin: 10px;">
+            <label for="password">비밀번호</label>
+            <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control"
+                   th:field="*{password}">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 200px; margin-top: 20px;">로그인</button>
+        <button type="button" class="btn btn-primary" style="width: 200px; margin-top: 20px;" th:onclick="|location.href='@{/}'|">메인으로</button>
+
+    </form>
 
 </div>
 

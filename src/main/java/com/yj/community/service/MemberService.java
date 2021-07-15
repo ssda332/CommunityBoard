@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional
 @Service
 public class MemberService {
@@ -16,10 +18,16 @@ public class MemberService {
     }
 
     public int save(Member member) {
-        System.out.println("member.getName() = " + member.getName());
         // validateDuplicateMember(member); // 중복 회원 검증
         int result = memberRepository.save(member);
         return result;
+    }
+
+    public Member login(String loginId, String password) {
+        return memberRepository.findByLoginId(loginId).filter(m -> m.getPassword().equals(password))
+                .orElse(null);
+
+
     }
 
 }
