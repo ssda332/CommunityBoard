@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yj.community.repository.MemberRepository">
+    <insert id="save" parameterType="member">
+        INSERT INTO tb_user VALUES(TB_USER_SEQ.NEXTVAL, #{loginId}, #{password}, #{name}, DEFAULT, DEFAULT, DEFAULT, NULL);
+    </insert>
+</mapper>

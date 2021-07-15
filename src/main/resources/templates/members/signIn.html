@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+
+    <th:block th:replace="fragments/navbar :: nav-header" />
+
+    <style>
+        .container {
+            border: 1px solid red;
+            margin-top: 150px;
+            width: 300px;
+            height: 500px;
+
+            text-align: center;
+        }
+
+        .form-container {
+            width: 50%;
+        }
+
+        .form-image {
+            width: 50%;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<th:block th:replace="fragments/navbar :: nav"> navbar </th:block>
+
+<div class="container">
+
+    <div>로그인</div>
+
+    <div style="margin: 10px;">
+        <label for="loginId">로그인 ID</label>
+        <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control">
+    </div>
+    <div style="margin: 10px;">
+        <label for="password">비밀번호</label>
+        <input style="width: 200px; margin: auto;" type="text" id="password" class="form-control">
+    </div>
+
+    <button type="button" class="btn btn-primary" style="width: 200px;">로그인</button>
+
+</div>
+
+</body>
+</html>
