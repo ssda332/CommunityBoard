@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <th:block th:replace="fragments/navbar :: nav-header" />
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+<nav th:replace="fragments/navbar :: nav"> navbar </nav>
+
+<section class="board" style=" margin: auto; margin: 60px;">
+
+    <h2>게시판</h2>
+    <hr style="height: 2px; background-color: black;">
+
+    <div>
+
+        <div style="font-size: 20px;">안녕하세요</div>
+
+        <div>
+            <span>김영진</span>
+            <span>2021-07-16</span>
+            <span>수정날짜 2021-07-17</span>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div>
+        안녕하세요
+    </div>
+
+    <hr>
+
+    <div style="display: flex; float: right;">
+        <button style="width: 100px; height: 70px; margin: 5px;" type="button" class="btn btn-primary">목록으로</button>
+        <button style="width: 100px; height: 70px; margin: 5px;" type="button" class="btn btn-primary">수정하기</button>
+        <button style="width: 100px; height: 70px; margin: 5px;" type="button" class="btn btn-primary">삭제하기</button>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.yj.community.domain;
+package com.yj.community.domain.member;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

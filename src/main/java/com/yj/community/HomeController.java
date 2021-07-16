@@ -1,11 +1,10 @@
 package com.yj.community;
 
 import com.yj.community.controller.argumentresolver.Login;
-import com.yj.community.domain.Member;
+import com.yj.community.domain.member.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {

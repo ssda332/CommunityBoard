@@ -1,6 +1,6 @@
 package com.yj.community.repository;
 
-import com.yj.community.domain.Member;
+import com.yj.community.domain.member.Member;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

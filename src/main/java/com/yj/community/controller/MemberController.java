@@ -1,8 +1,8 @@
 package com.yj.community.controller;
 
 import com.yj.community.SessionConst;
-import com.yj.community.domain.LoginForm;
-import com.yj.community.domain.Member;
+import com.yj.community.domain.member.LoginForm;
+import com.yj.community.domain.member.Member;
 import com.yj.community.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

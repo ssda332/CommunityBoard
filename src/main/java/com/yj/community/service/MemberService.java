@@ -1,12 +1,9 @@
 package com.yj.community.service;
 
-import com.yj.community.domain.Member;
+import com.yj.community.domain.member.Member;
 import com.yj.community.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Transactional
 @Service

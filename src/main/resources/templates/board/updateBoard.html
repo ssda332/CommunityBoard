@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <th:block th:replace="fragments/navbar :: nav-header" />
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+<nav th:replace="fragments/navbar :: nav"> navbar </nav>
+
+<section class="board" style=" margin: auto; margin: 60px;">
+
+    <h2>게시글 수정</h2>
+    <hr style="height: 2px; background-color: black;">
+
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">제목</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제목을 입력하세요">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="내용을 입력하세요"></textarea>
+    </div>
+
+    <div style="display: flex; float: right;">
+        <button style="width: 100px; height: 70px; margin: 5px;" type="button" class="btn btn-primary">수정하기</button>
+        <button style="width: 100px; height: 70px; margin: 5px;" type="button" class="btn btn-primary">취소하기</button>
+    </div>
+
+</section>
+
+</body>
+</html>

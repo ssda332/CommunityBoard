@@ -1,7 +1,7 @@
 package com.yj.community.controller.argumentresolver;
 
 import com.yj.community.SessionConst;
-import com.yj.community.domain.Member;
+import com.yj.community.domain.member.Member;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
