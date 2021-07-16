@@ -17,12 +17,9 @@
             text-align: center;
         }
 
-        .form-container {
-            width: 50%;
-        }
-
-        .form-image {
-            width: 50%;
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
         }
 
     </style>
@@ -42,16 +39,19 @@
             <label for="loginId">로그인 ID</label>
             <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control"
                    th:field="*{loginId}">
+            <div class="field-error" th:errors="*{loginId}" />
         </div>
         <div style="margin: 10px;">
             <label for="password">비밀번호</label>
             <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control"
                    th:field="*{password}">
+            <div class="field-error" th:errors="*{password}" />
         </div>
         <div style="margin: 10px;">
             <label for="name">별명</label>
             <input style="width: 200px; margin: auto;" type="text" id="name" class="form-control"
                    th:field="*{name}">
+            <div class="field-error" th:errors="*{name}" />
         </div>
 
         <hr>

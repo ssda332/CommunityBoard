@@ -7,9 +7,9 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class LoginForm {
 
-    @NotEmpty
+    @NotEmpty(message = "ID를 적어주세요.")
     private String loginId;
-    @NotEmpty
+    @NotEmpty(message = "비밀번호를 적어주세요.")
     private String password;
 
 }

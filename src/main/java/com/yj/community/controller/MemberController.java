@@ -7,6 +7,8 @@ import com.yj.community.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +31,14 @@ public class MemberController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute Member member) {
+    public String save(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "members/signUp";
+        }
 
         int result = memberService.save(member);
+
         return "redirect:/";
 
     }
@@ -43,17 +50,25 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm form, HttpServletRequest request) {
+    public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+
+        if (bindingResult.hasErrors()) {
+            return "/members/signIn";
+        }
 
         Member loginMember = memberService.login(form.getLoginId(), form.getPassword());
 
         if (loginMember == null) {
+
+            request.setAttribute("failAlert", "아이디와 비밀번호를 다시 확인해주세요.");
+
             return "/members/signIn";
         }
 
         // 로그인 성공 처리
         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
         HttpSession session = request.getSession();
+
         // 세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
