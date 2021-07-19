@@ -22,4 +22,8 @@ public class BoardService {
 
         return boardRepository.write(board);
     }
+
+    public int selectListCount() {
+        return boardRepository.selectListCount();
+    }
 }

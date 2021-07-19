@@ -23,4 +23,7 @@ public interface BoardRepository {
 
     @Insert("INSERT INTO TB_BOARD VALUES(TB_BOARD_SEQ.NEXTVAL, #{board.subject}, #{board.context}, DEFAULT, DEFAULT,  #{board.writer}, DEFAULT, DEFAULT)")
     int write(@Param("board") BoardWriteForm board);
+
+    @Select("SELECT COUNT(*) FROM TB_BOARD WHERE BD_DEL_YN")
+    int selectListCount();
 }

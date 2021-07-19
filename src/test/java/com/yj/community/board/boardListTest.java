@@ -22,4 +22,9 @@ public class boardListTest {
         Assertions.assertThat(boardList.size()).isEqualTo(10);
         // 페이징 처리 안된 게시판 조회
     }
+
+    @Test
+    void boardListCount() {
+
+    }
 }

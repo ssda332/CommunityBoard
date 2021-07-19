@@ -32,10 +32,12 @@ public class BoardController {
 
         int currentPage = page != null ? page : 1;
 
+        int listCount = boardService.selectListCount();
+
         ArrayList<BoardInfo> boardList = boardService.getBoardList();
 
         if(boardList != null) {
-            mv.addObject("list", boardList);
+            mv.addObject("list", boardList); // d
             mv.setViewName("board/boardList");
         } else {
             mv.setViewName("home");
