@@ -5,6 +5,7 @@ import com.yj.community.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,5 +38,10 @@ public class BoardController {
 
         /*return "board/boardList";*/
         return mv;
+    }
+
+    @GetMapping("write")
+    public String writeBoard(Model model) {
+        return "/board/writeBoard";
     }
 }

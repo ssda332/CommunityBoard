@@ -42,14 +42,14 @@
                 </li>
             </ul>
 
-            <div th:if="${member eq null}" class="text-end">
+            <div th:if="${session.loginMember eq null}" class="text-end">
                 <button type="button" class="btn btn-outline-light me-2" th:onclick="|location.href='@{/members/login}'|">Login</button>
                 <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/members/add}'|">Sign-up</button>
             </div>
 
-            <div th:unless="${member eq null}" class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <div th:unless="${session.loginMember eq null}" class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <div class="dropdown text-end">
-                    <a href="#" th:text="|${member.name}님, 반갑습니다|" class="d-block link-secondary text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" th:text="|${session.loginMember.getName()}님, 반갑습니다|" class="d-block link-secondary text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                         김영진님, 환영합니다
                     </a>
