@@ -1,6 +1,7 @@
 package com.yj.community.service;
 
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,5 +16,10 @@ public class BoardService {
 
     public ArrayList<BoardInfo> getBoardList() {
         return boardRepository.getBoardList();
+    }
+
+    public int write(BoardWriteForm board) {
+
+        return boardRepository.write(board);
     }
 }

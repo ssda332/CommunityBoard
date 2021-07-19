@@ -1,16 +1,21 @@
 package com.yj.community.controller;
 
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.BoardWriteForm;
+import com.yj.community.domain.member.LoginForm;
 import com.yj.community.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Slf4j
@@ -41,7 +46,28 @@ public class BoardController {
     }
 
     @GetMapping("write")
-    public String writeBoard(Model model) {
+    public String writeBoard(@ModelAttribute("board") BoardWriteForm form) {
         return "/board/writeBoard";
+    }
+
+    @PostMapping("write")
+    public String write(@Validated @ModelAttribute BoardWriteForm board, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            return "/board/writeBoard";
+        }
+
+        board.setWriter(request.getParameter("writer"));
+
+        int result = boardService.write(board);
+
+        if (result > 0) {
+            return "redirect:/board/list";
+        } else {
+            throw new Exception();
+        }
+
+
+
     }
 }

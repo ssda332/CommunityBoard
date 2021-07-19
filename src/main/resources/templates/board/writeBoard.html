@@ -33,18 +33,23 @@
 
     <h2>게시글 작성</h2>
     <hr style="height: 2px; background-color: black;">
+    <form method="post" action="" th:action th:object="${board}">
 
-    <form method="post">
+        <input type="hidden" class="form-control" value="ok" name="writer" th:value="${session.loginMember.getName()}">
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">제목</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제목을 입력하세요">
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제목을 입력하세요"
+                   th:field="*{subject}">
         </div>
 
         <div class="mb-3">
+            <!--<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="내용을 입력하세요"
+                      th:field="*{context}"></textarea>-->
             <label for="summernote" class="form-label">내용</label>
-            <!--<textarea class="form-control" id="summernote" name="editordata" rows="3" placeholder="내용을 입력하세요"></textarea>-->
-            <textarea id="summernote" name="editordata"></textarea>
+            <textarea id="summernote" name="editordata"
+                      th:field="*{context}"></textarea>
         </div>
 
         <div style="display: flex; float: right;">
