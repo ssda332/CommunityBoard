@@ -25,6 +25,6 @@ public class boardListTest {
 
     @Test
     void boardListCount() {
-
+        System.out.println("boardListCount : " + boardRepository.selectListCount() + "개의 게시물");
     }
 }

@@ -32,7 +32,7 @@ public class BoardController {
 
         int currentPage = page != null ? page : 1;
 
-        int listCount = boardService.selectListCount();
+        int listCount = boardService.selectListCount(); // 전체 게시글 갯수
 
         ArrayList<BoardInfo> boardList = boardService.getBoardList();
 
@@ -68,8 +68,6 @@ public class BoardController {
         } else {
             throw new Exception();
         }
-
-
 
     }
 }
