@@ -48,19 +48,35 @@
 
         <nav aria-label="Page navigation example">
             <ul style="margin: auto" class="pagination">
-                <li class="page-item"><a class="page-link" href="#">처음</a></li>
-                <li class="page-item"><a class="page-link" href="#">
-                    <span aria-hidden="true">&laquo;</span>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">
-                    <span aria-hidden="true">&raquo;</span>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">끝</a></li>
+                <th:block th:if="${pi.getCurrentPage()} != 1">
+                    <li class="page-item"><a class="page-link" href="#"
+                                             th:href="@{/board/list(currentPage=1)}">처음</a></li>
+                    <li class="page-item"><a class="page-link" href="#"
+                                             th:href="@{/board/list(currentPage=${pi.getCurrentPage() - 1})}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a></li>
+                </th:block>
+
+                <th:block th:each="num: ${#numbers.sequence(pi.getStartPage(),pi.getEndPage())}">
+                    <li th:if="${pi.getCurrentPage()} eq ${num}" th:classappend="active" th:attr="aria-current=page" class="page-item">
+                        <a th:text="${num}"
+                           th:href="@{/board/list(currentPage=${num})}" class="page-link" href="#">1</a>
+                    </li>
+                    <li th:unless="${pi.getCurrentPage()} eq ${num}" class="page-item">
+                        <a th:text="${num}"
+                           th:href="@{/board/list(currentPage=${num})}" class="page-link" href="#">1</a>
+                    </li>
+                </th:block>
+
+                <th:block th:if="${pi.getCurrentPage()} != ${pi.getMaxPage()}">
+
+                    <li class="page-item"><a class="page-link" href="#"
+                                             th:href="@{/board/list(currentPage=${pi.getCurrentPage() + 1})}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a></li>
+                    <li class="page-item"><a class="page-link" href="#"
+                                             th:href="@{/board/list(currentPage=${pi.getMaxPage()})}">끝</a></li>
+                </th:block>
             </ul>
         </nav>
     </div>

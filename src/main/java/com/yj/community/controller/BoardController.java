@@ -2,6 +2,8 @@ package com.yj.community.controller;
 
 import com.yj.community.domain.board.BoardInfo;
 import com.yj.community.domain.board.BoardWriteForm;
+import com.yj.community.domain.board.pagination.PageInfo;
+import com.yj.community.domain.board.pagination.Pagination;
 import com.yj.community.domain.member.LoginForm;
 import com.yj.community.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -30,20 +32,23 @@ public class BoardController {
     public ModelAndView listForm(ModelAndView mv,
                                  @RequestParam(value="currentPage", required=false, defaultValue="1") Integer page) {
 
+
         int currentPage = page != null ? page : 1;
 
         int listCount = boardService.selectListCount(); // 전체 게시글 갯수
 
-        ArrayList<BoardInfo> boardList = boardService.getBoardList();
+        PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+        ArrayList<BoardInfo> boardList = boardService.getBoardList(pi);
 
         if(boardList != null) {
-            mv.addObject("list", boardList); // d
+            mv.addObject("list", boardList);
+            mv.addObject("pi", pi);
             mv.setViewName("board/boardList");
         } else {
             mv.setViewName("home");
         }
-
-        /*return "board/boardList";*/
+        
         return mv;
     }
 

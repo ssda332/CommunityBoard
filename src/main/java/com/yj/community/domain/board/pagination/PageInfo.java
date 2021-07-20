@@ -5,6 +5,14 @@ import lombok.Data;
 @Data
 public class PageInfo {
 
+    private int currentPage;
+    private int listCount;
+    private int pageLimit;
+    private int maxPage;
+    private int startPage;
+    private int endPage;
+    private int boardLimit;
+
     public PageInfo(int currentPage, int listCount, int pageLimit, int maxPage, int startPage, int endPage,
                     int boardLimit) {
         super();
@@ -16,13 +24,5 @@ public class PageInfo {
         this.endPage = endPage;
         this.boardLimit = boardLimit;
     }
-
-    private int currentPage;
-    private int listCount;
-    private int pageLimit;
-    private int maxPage;
-    private int startPage;
-    private int endPage;
-    private int boardLimit;
 
 }
