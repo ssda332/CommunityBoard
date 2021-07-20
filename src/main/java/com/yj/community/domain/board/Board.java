@@ -8,4 +8,6 @@ public class Board {
     private String subject;
     private String content;
     private String registerDate;
+    private String registerMember;
+    private int viewCount;
 }

@@ -1,5 +1,6 @@
 package com.yj.community.controller;
 
+import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -48,7 +51,7 @@ public class BoardController {
         } else {
             mv.setViewName("home");
         }
-        
+
         return mv;
     }
 
@@ -73,6 +76,35 @@ public class BoardController {
         } else {
             throw new Exception();
         }
+    }
 
+    @GetMapping("/{seq}")
+    public String item(@PathVariable long seq, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        // 쿠키 값을 이용하여 게시글 읽음 여부 확인
+        boolean flag = false;
+        Cookie[] cookies = request.getCookies();
+
+        Board board = null;
+
+        if(cookies != null) {
+            for(Cookie c : cookies) {
+                if(c.getName().equals("seq"+seq)) {
+                    // 해당 게시글에 대한 쿠키 존재(이미 게시글을 읽었음)
+                    flag = true;
+                }
+            }
+            if(!flag) { // 게시글을 청므 읽을 경우 쿠키 저장하기
+                Cookie c = new Cookie("seq"+seq, String.valueOf(seq));
+                c.setMaxAge(1 * 24 * 60 * 60); // 하루동안 저장
+                response.addCookie(c);
+
+            }
+            board = boardService.findById(seq, flag);
+
+        }
+
+        model.addAttribute("board", board);
+        return "board/boardDetail";
     }
 }

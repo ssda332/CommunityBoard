@@ -1,5 +1,6 @@
 package com.yj.community.service;
 
+import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
@@ -32,5 +33,14 @@ public class BoardService {
 
     public int selectListCount() {
         return boardRepository.selectListCount();
+    }
+
+    public Board findById(long seq, boolean flag) {
+
+        if(!flag) {
+            boardRepository.addReadCount(seq);
+        }
+
+        return boardRepository.selectBoard(seq);
     }
 }

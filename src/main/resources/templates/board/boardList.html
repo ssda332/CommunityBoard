@@ -32,11 +32,11 @@
         </thead>
         <tbody>
         <tr th:each="board : ${list}">
-            <th th:text="${board.seq}" scope="row">1</th>
-            <td th:text="${board.registerMember}">Mark</td>
-            <td th:text="${board.subject}">Otto</td>
-            <td th:text="${board.registerDate}">2021-07-16</td>
-            <td th:text="${board.viewCount}">조회수</td>
+            <th scope="row"><a th:text="${board.seq}" th:href="@{|/board/${board.seq}|}" href="">1</a></th>
+            <td th:href="@{|/board/${board.seq}|}" th:text="${board.registerMember}">Mark</td>
+            <td th:href="@{|/board/${board.seq}|}" th:text="${board.subject}">Otto</td>
+            <td th:href="@{|/board/${board.seq}|}" th:text="${board.registerDate}">2021-07-16</td>
+            <td th:href="@{|/board/${board.seq}|}" th:text="${board.viewCount}">조회수</td>
         </tr>
         </tbody>
     </table>

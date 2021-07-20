@@ -1,5 +1,6 @@
 package com.yj.community.repository;
 
+import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
@@ -28,4 +29,18 @@ public interface BoardRepository {
 
     @Select("SELECT COUNT(*) FROM TB_BOARD WHERE BD_DEL_YN = 'N'")
     int selectListCount();
+
+    @Update("UPDATE TB_BOARD SET BD_VIEW_COUNT=BD_VIEW_COUNT+1 WHERE BD_SEQ=#{seq}")
+    void addReadCount(@Param("seq") long seq);
+
+    @Select("SELECT BD_SEQ, BD_REG_MEM, BD_SUBJECT, BD_CONTENT, TO_CHAR(BD_REG_DATE, 'YYYY-MM-DD') REG_DATE, BD_VIEW_COUNT FROM TB_BOARD WHERE BD_SEQ=#{seq} AND BD_DEL_YN='N'")
+    @Results({
+            @Result(property = "seq", column = "BD_SEQ"),
+            @Result(property = "registerMember", column = "BD_REG_MEM"),
+            @Result(property = "subject", column = "BD_SUBJECT"),
+            @Result(property = "content", column = "BD_CONTENT"),
+            @Result(property = "registerDate", column = "REG_DATE"),
+            @Result(property = "viewCount", column = "BD_VIEW_COUNT")
+    })
+    Board selectBoard(@Param("seq") long seq);
 }
