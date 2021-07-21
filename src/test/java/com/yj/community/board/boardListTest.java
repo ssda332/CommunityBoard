@@ -1,7 +1,9 @@
 package com.yj.community.board;
 
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.comment.Comment;
 import com.yj.community.repository.BoardRepository;
+import com.yj.community.repository.CommentRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class boardListTest {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @Test
     void boardListView() {
@@ -31,6 +36,15 @@ public class boardListTest {
 
     @Test
     void boardDetailView() {
+
+    }
+
+    @Test
+    void commentListView() {
+        long seq = 30;
+        ArrayList<Comment> comments = commentRepository.selectList(seq);
+
+        System.out.println(comments.toString());
 
     }
 }

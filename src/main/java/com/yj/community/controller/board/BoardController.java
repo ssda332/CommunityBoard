@@ -1,4 +1,4 @@
-package com.yj.community.controller;
+package com.yj.community.controller.board;
 
 import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
@@ -104,8 +104,9 @@ public class BoardController {
             board = boardService.findById(seq, flag);
 
         }
-
+        model.addAttribute("boardSeq", seq);
         model.addAttribute("board", board);
+
         return "board/boardDetail";
     }
 
@@ -116,8 +117,6 @@ public class BoardController {
         // 작성자 여부 확인 검증은 인터셉터에서
         Board boardForm = boardService.findById(seq, true);
         model.addAttribute("boardForm", boardForm);
-
-        System.out.println(boardForm.toString());
 
         return "board/updateBoard";
     }
@@ -146,7 +145,7 @@ public class BoardController {
 
         int result = boardService.deleteBoard(seq);
 
-        log.info("delete result = {}", result);
+        //log.info("delete result = {}", result);
 
         if (result > 0) {
             return "redirect:/board/list";

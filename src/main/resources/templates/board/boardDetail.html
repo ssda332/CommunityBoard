@@ -54,9 +54,28 @@
                 th:onclick="|location.href='@{|/board/update/${board.getSeq()}|}'|" type="button" class="btn btn-primary">수정하기</button>
         <button th:if="${session.loginMember.getName()} eq ${board.getRegisterMember()}"
                 th:onclick="|location.href='@{|/board/delete/${board.getSeq()}|}'|" type="button" class="btn btn-primary">삭제하기</button>
-        <button th:onclick="|location.href='@{/board/list}'|" style="float: right;" type="button" class="btn btn-primary"
-                onclick="history.back(-1)">목록으로</button>
+        <button th:onclick="|location.href='@{/board/list}'|" style="float: right;" type="button" class="btn btn-primary">목록으로</button>
     </div>
+
+    <br>
+
+    <form method="post" action="" th:action>
+        <div class="write-comment-form">
+            <label for="exampleFormControlTextarea1">댓글 작성</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <button style="float:right" type="submit" class="btn btn-primary">등록</button>
+        </div>
+    </form>
+
+    <table style="table-layout: fixed;" class="table">
+        <thead>
+        <tr>
+            <th colspan="8" style="width: 100%; text-align: center;">댓글</th>
+        </tr>
+        </thead>
+        <tbody id="commentTable">
+        </tbody>
+    </table>
 
 </section>
 
