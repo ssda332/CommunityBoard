@@ -2,6 +2,7 @@ package com.yj.community.controller;
 
 import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.BoardUpdateForm;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
 import com.yj.community.domain.board.pagination.Pagination;
@@ -94,7 +95,7 @@ public class BoardController {
                     flag = true;
                 }
             }
-            if(!flag) { // 게시글을 청므 읽을 경우 쿠키 저장하기
+            if(!flag) { // 게시글을 처음 읽을 경우 쿠키 저장하기
                 Cookie c = new Cookie("seq"+seq, String.valueOf(seq));
                 c.setMaxAge(1 * 24 * 60 * 60); // 하루동안 저장
                 response.addCookie(c);
@@ -106,5 +107,51 @@ public class BoardController {
 
         model.addAttribute("board", board);
         return "board/boardDetail";
+    }
+
+    @GetMapping("update/{seq}")
+    public String updateForm(@PathVariable long seq, Model model) {
+
+
+        // 작성자 여부 확인 검증은 인터셉터에서
+        Board boardForm = boardService.findById(seq, true);
+        model.addAttribute("boardForm", boardForm);
+
+        System.out.println(boardForm.toString());
+
+        return "board/updateBoard";
+    }
+
+    @PostMapping("update/{seq}")
+    public String update(@Validated @ModelAttribute BoardUpdateForm update, BindingResult bindingResult, @PathVariable long seq) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            return "/board/updateBoard";
+        }
+
+        int result = boardService.updateBoard(update, seq);
+
+        if (result > 0) {
+            return "redirect:/board/" + seq;
+        } else {
+            throw new Exception();
+        }
+
+    }
+
+    @GetMapping("delete/{seq}")
+    public String delete(@PathVariable long seq) throws Exception {
+
+        log.info("delete method init");
+
+        int result = boardService.deleteBoard(seq);
+
+        log.info("delete result = {}", result);
+
+        if (result > 0) {
+            return "redirect:/board/list";
+        } else {
+            throw new Exception();
+        }
     }
 }

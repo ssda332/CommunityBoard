@@ -48,11 +48,14 @@
 
         </tbody>
     </table>
-
+    <!-- th:onclick="|location.href='@{/board/list}'|" -->
     <div>
-        <button type="button" class="btn btn-primary">수정하기</button>
-        <button type="button" class="btn btn-primary">삭제하기</button>
-        <button th:onclick="|location.href='@{/board/list}'|" style="float: right;" type="button" class="btn btn-primary">목록으로</button>
+        <button th:if="${session.loginMember.getName()} eq ${board.getRegisterMember()}"
+                th:onclick="|location.href='@{|/board/update/${board.getSeq()}|}'|" type="button" class="btn btn-primary">수정하기</button>
+        <button th:if="${session.loginMember.getName()} eq ${board.getRegisterMember()}"
+                th:onclick="|location.href='@{|/board/delete/${board.getSeq()}|}'|" type="button" class="btn btn-primary">삭제하기</button>
+        <button th:onclick="|location.href='@{/board/list}'|" style="float: right;" type="button" class="btn btn-primary"
+                onclick="history.back(-1)">목록으로</button>
     </div>
 
 </section>

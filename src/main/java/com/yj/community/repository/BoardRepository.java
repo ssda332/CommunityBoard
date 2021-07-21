@@ -2,6 +2,7 @@ package com.yj.community.repository;
 
 import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.BoardUpdateForm;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
 import org.apache.ibatis.annotations.*;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 @Repository
 public interface BoardRepository {
 
-    @Select("SELECT BD_SEQ, BD_REG_MEM, BD_SUBJECT, TO_CHAR(BD_REG_DATE, 'YYYY-MM-DD') REG_DATE, BD_VIEW_COUNT FROM TB_BOARD ORDER BY BD_SEQ DESC")
+    @Select("SELECT BD_SEQ, BD_REG_MEM, BD_SUBJECT, TO_CHAR(BD_REG_DATE, 'YYYY-MM-DD') REG_DATE, BD_VIEW_COUNT FROM TB_BOARD WHERE BD_DEL_YN = 'N' ORDER BY BD_SEQ DESC")
     @Results({
             @Result(property = "seq", column = "BD_SEQ"),
             @Result(property = "registerMember", column = "BD_REG_MEM"),
@@ -43,4 +44,10 @@ public interface BoardRepository {
             @Result(property = "viewCount", column = "BD_VIEW_COUNT")
     })
     Board selectBoard(@Param("seq") long seq);
+
+    @Update("UPDATE TB_BOARD SET BD_SUBJECT=#{update.subject},BD_CONTENT=#{update.editordata},BD_UPD_DATE=SYSDATE WHERE BD_SEQ=#{seq}")
+    int updateBoard(@Param("update") BoardUpdateForm update, @Param("seq") long seq);
+
+    @Update("UPDATE TB_BOARD SET BD_DEL_YN='Y' WHERE BD_SEQ=#{seq}")
+    int deleteBoard(@Param("seq") long seq);
 }

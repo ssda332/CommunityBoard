@@ -2,6 +2,7 @@ package com.yj.community.service;
 
 import com.yj.community.domain.board.Board;
 import com.yj.community.domain.board.BoardInfo;
+import com.yj.community.domain.board.BoardUpdateForm;
 import com.yj.community.domain.board.BoardWriteForm;
 import com.yj.community.domain.board.pagination.PageInfo;
 import com.yj.community.repository.BoardRepository;
@@ -42,5 +43,15 @@ public class BoardService {
         }
 
         return boardRepository.selectBoard(seq);
+    }
+
+    public int updateBoard(BoardUpdateForm update, long seq) {
+
+        return boardRepository.updateBoard(update, seq);
+    }
+
+    public int deleteBoard(long seq) {
+
+        return boardRepository.deleteBoard(seq);
     }
 }
