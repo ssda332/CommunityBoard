@@ -6,7 +6,7 @@ public class Pagination {
         PageInfo pi = null;	// 페이지 정보를 담아 줄 PageInfo 참조변수 선언
 
         int pageLimit = 5;	// 한 페이지에 보여질 페이징바의 개수
-        int boardLimit = 5;	// 한 페이지 보여질 게시글 개수
+        int boardLimit = 10;	// 한 페이지 보여질 게시글 개수
 
         int maxPage = (int)Math.ceil((double)listCount / boardLimit);
         int startPage = (currentPage - 1) / pageLimit * pageLimit + 1; // 현재 페이지(currentPage 참조해서 결정)

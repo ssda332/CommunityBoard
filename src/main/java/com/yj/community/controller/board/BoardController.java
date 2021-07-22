@@ -45,6 +45,8 @@ public class BoardController {
 
         ArrayList<BoardInfo> boardList = boardService.getBoardList(pi);
 
+        log.info("getBoardList = {}", boardList);
+
         if(boardList != null) {
             mv.addObject("list", boardList);
             mv.addObject("pi", pi);

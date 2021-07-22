@@ -43,8 +43,7 @@ public class boardListTest {
     void commentListView() {
         long seq = 30;
         ArrayList<Comment> comments = commentRepository.selectList(seq);
-
-        System.out.println(comments.toString());
+        System.out.println(comments);
 
     }
 }

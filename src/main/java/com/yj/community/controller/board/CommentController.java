@@ -1,39 +1,78 @@
 package com.yj.community.controller.board;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.yj.community.domain.board.comment.Comment;
+import com.yj.community.domain.board.comment.CommentWriteForm;
 import com.yj.community.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequiredArgsConstructor
-@RequestMapping("/comment")
+@RequestMapping("/board/comment")
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{seq}")
-    @ResponseBody
-    public String commentList(@PathVariable long seq) {
-        log.info("commentList init");
+    @GetMapping("/{seq}")
+    public ArrayList<Comment> commentList(@PathVariable long seq) {
 
         ArrayList<Comment> cList = commentService.selectList(seq);
-        log.info("commentList init = {}", cList.toString());
 
-        Gson gson =  new GsonBuilder().create();
+/*        Gson gson =  new GsonBuilder().create();
+        return gson.toJson(cList);*/
 
+        return cList;
+    }
 
-        return gson.toJson(cList);
+    @PostMapping("/{seq}")
+    public String writeComment(@Validated @ModelAttribute CommentWriteForm form, BindingResult bindingResult, @PathVariable long seq) {
+
+        if (bindingResult.hasErrors()) {
+            return "bindingError";
+        }
+
+        int result = commentService.writeComment(form, seq);
+
+        if (result > 0) {
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
+    @PostMapping("/update/{seq}")
+    public String updateComment(@Validated @ModelAttribute CommentWriteForm form, BindingResult bindingResult, @PathVariable long seq) {
+        if (bindingResult.hasErrors()) {
+            return "bindingError";
+        }
+
+        int result = commentService.updateComment(form, seq);
+
+        if (result > 0) {
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
+    @PostMapping("/delete/{seq}")
+    public String deleteComment(@PathVariable long seq) {
+
+        int result = commentService.deleteComment(seq);
+
+        if (result > 0) {
+            return "success";
+        } else {
+            return "error";
+        }
     }
 }
