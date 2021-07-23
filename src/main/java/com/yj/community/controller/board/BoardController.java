@@ -67,7 +67,7 @@ public class BoardController {
     public String write(@Validated @ModelAttribute BoardWriteForm board, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return "/board/writeBoard";
+            return "board/writeBoard";
         }
 
         board.setWriter(request.getParameter("writer"));

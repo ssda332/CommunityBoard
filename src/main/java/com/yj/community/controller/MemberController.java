@@ -43,7 +43,7 @@ public class MemberController {
     @GetMapping("login")
     public String signInForm(@ModelAttribute("loginForm") LoginForm form) {
 
-        return "/members/signIn";
+        return "members/signIn";
     }
 
     @PostMapping("login")
@@ -51,7 +51,7 @@ public class MemberController {
                         @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
-            return "/members/signIn";
+            return "members/signIn";
         }
 
         Member loginMember = memberService.login(form.getLoginId(), form.getPassword());
@@ -60,7 +60,7 @@ public class MemberController {
 
             request.setAttribute("failAlert", "아이디와 비밀번호를 다시 확인해주세요.");
 
-            return "/members/signIn";
+            return "members/signIn";
         }
 
         // 로그인 성공 처리
