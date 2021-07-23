@@ -81,7 +81,7 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/{seq}")
+    @GetMapping("{seq}")
     public String item(@PathVariable long seq, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         // 쿠키 값을 이용하여 게시글 읽음 여부 확인

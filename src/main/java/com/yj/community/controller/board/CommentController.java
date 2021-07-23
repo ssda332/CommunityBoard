@@ -22,7 +22,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/{seq}")
+    @GetMapping("{seq}")
     public ArrayList<Comment> commentList(@PathVariable long seq) {
 
         ArrayList<Comment> cList = commentService.selectList(seq);
@@ -33,7 +33,7 @@ public class CommentController {
         return cList;
     }
 
-    @PostMapping("/{seq}")
+    @PostMapping("{seq}")
     public String writeComment(@Validated @ModelAttribute CommentWriteForm form, BindingResult bindingResult, @PathVariable long seq) {
 
         if (bindingResult.hasErrors()) {
@@ -49,7 +49,7 @@ public class CommentController {
         }
     }
 
-    @PostMapping("/update/{seq}")
+    @PostMapping("update/{seq}")
     public String updateComment(@Validated @ModelAttribute CommentWriteForm form, BindingResult bindingResult, @PathVariable long seq) {
         if (bindingResult.hasErrors()) {
             return "bindingError";
@@ -64,7 +64,7 @@ public class CommentController {
         }
     }
 
-    @PostMapping("/delete/{seq}")
+    @PostMapping("delete/{seq}")
     public String deleteComment(@PathVariable long seq) {
 
         int result = commentService.deleteComment(seq);

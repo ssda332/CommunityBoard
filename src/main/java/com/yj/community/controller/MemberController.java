@@ -22,12 +22,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public String signUp(@ModelAttribute("member") Member member) {
         return "/members/signUp";
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public String save(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -40,13 +40,13 @@ public class MemberController {
 
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String signInForm(@ModelAttribute("loginForm") LoginForm form) {
 
         return "/members/signIn";
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 
@@ -73,7 +73,7 @@ public class MemberController {
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("/logout")
+    @PostMapping("logout")
     public String logoutV3(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
