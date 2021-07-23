@@ -60,7 +60,7 @@ public class BoardController {
 
     @GetMapping("write")
     public String writeBoard(@ModelAttribute("board") BoardWriteForm form) {
-        return "/board/writeBoard";
+        return "board/writeBoard";
     }
 
     @PostMapping("write")
