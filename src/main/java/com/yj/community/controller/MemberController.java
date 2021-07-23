@@ -17,14 +17,14 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("members")
 public class MemberController {
 
     private final MemberService memberService;
 
     @GetMapping("add")
     public String signUp(@ModelAttribute("member") Member member) {
-        return "/members/signUp";
+        return "members/signUp";
     }
 
     @PostMapping("add")

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("board")
 public class BoardController {
 
     private final BoardService boardService;
@@ -127,7 +127,7 @@ public class BoardController {
     public String update(@Validated @ModelAttribute BoardUpdateForm update, BindingResult bindingResult, @PathVariable long seq) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return "/board/updateBoard";
+            return "board/updateBoard";
         }
 
         int result = boardService.updateBoard(update, seq);
