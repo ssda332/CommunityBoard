@@ -9,11 +9,12 @@
 
     <style>
         .container {
-            border: 1px solid red;
+            border-radius: 10px;
+            background-color: lightgrey;
             margin-top: 150px;
             width: 300px;
-            height: 500px;
-
+            height: 650px;
+            padding-top: 20px;
             text-align: center;
         }
 
@@ -33,7 +34,7 @@
 
     <form action="" th:action th:object="${member}" method="post">
 
-        <div>회원가입</div>
+        <div><h2>회원가입</h2></div>
 
         <div style="margin: 10px;">
             <label for="loginId">로그인 ID</label>
