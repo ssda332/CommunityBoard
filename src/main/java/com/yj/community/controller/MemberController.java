@@ -3,9 +3,13 @@ package com.yj.community.controller;
 import com.yj.community.SessionConst;
 import com.yj.community.domain.member.LoginForm;
 import com.yj.community.domain.member.Member;
+import com.yj.community.domain.member.MyUserDetails;
 import com.yj.community.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -46,7 +50,7 @@ public class MemberController {
         return "/members/signIn";
     }
 
-    @PostMapping("/login")
+    //@PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 
@@ -69,6 +73,26 @@ public class MemberController {
 
         // 세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        return "redirect:" + redirectURL;
+    }
+
+    //@PostMapping("/login")
+    public String loginV2(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
+                        @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails myUserDetails = (MyUserDetails) auth.getPrincipal();
+        //위의 두줄로 로그인 한 계정이 어떤 권한을 가지고 있는지 이름은 무었인지를 가져옵니다
+        System.out.println("username : "+myUserDetails.getUsername());
+        HttpSession session = request.getSession();
+
+        System.out.println("username : "+myUserDetails.getUsername());
+        System.out.println("authorities : "+myUserDetails.getAuthorities());
+
+        session.setAttribute("member", myUserDetails.getUsername());
+        //session.setAttribute("principal", myUserDetails.getAuthorities());
+
 
         return "redirect:" + redirectURL;
     }

@@ -17,4 +17,6 @@ public class Member {
     private String name; // 사용자 별명
     @Pattern(regexp = "^[A-Za-z0-9]{8,12}$", message = "비밀번호는 영문 대,소문자와 숫자 8자 이상 12자 이하입니다.")
     private String password; // 사용자 비밀번호
+
+    private String role; // 사용자 역할
 }

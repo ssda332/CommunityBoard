@@ -38,14 +38,14 @@
 
         <div style="margin: 15px;">
             <label for="loginId">로그인 ID</label>
-            <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control"
+            <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control" name="username"
                    th:field="*{loginId}">
             <div class="field-error" th:errors="*{loginId}" />
         </div>
 
         <div style="margin: 10px;">
             <label for="password">비밀번호</label>
-            <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control"
+            <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control" name="password"
                    th:field="*{password}">
             <div class="field-error" th:errors="*{password}" />
         </div>
