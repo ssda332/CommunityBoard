@@ -8,6 +8,7 @@ import java.util.Collection;
 public class MyUserDetails implements UserDetails {
 
     private String username;
+    private String nickname;
     private String password;
     private String role;
 
@@ -30,6 +31,10 @@ public class MyUserDetails implements UserDetails {
 
     public String getRole() {
         return role;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     @Override

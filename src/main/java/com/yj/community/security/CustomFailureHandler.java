@@ -16,5 +16,7 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
                                         AuthenticationException exception) throws IOException, ServletException {
         System.out.println("exception type : " + exception.getClass().getName());
         System.out.println("exception message : " + exception.getMessage());
+
+        response.sendRedirect("/members/login");
     }
 }

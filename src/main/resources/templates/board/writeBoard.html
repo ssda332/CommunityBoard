@@ -32,8 +32,9 @@
     <h2>게시글 작성</h2>
     <hr style="height: 2px; background-color: black;">
     <form method="post" action="" th:action th:object="${board}">
+        
 
-        <input type="hidden" class="form-control" value="ok" name="writer" th:value="${session.loginMember.getName()}">
+        <input type="hidden" class="form-control" value="ok" name="writer" th:value="${#authentication.name}">
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">제목</label>
