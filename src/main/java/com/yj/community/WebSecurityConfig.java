@@ -34,14 +34,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MemberService memberService;
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
-    }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
     }
 
     @Override
@@ -66,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .formLogin() // 7
-                .loginPage("/members/login") // 로그인 페이지 링크
-                .loginProcessingUrl("members/login")
+                .loginPage("/login") // 로그인 페이지 링크
+                .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
@@ -84,22 +84,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authenticationProvider(authenticationProvider);
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService);
-    }
-
     /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider(memberService));
+        auth.userDetailsService(memberService);
     }*/
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider(memberService));
+    }
 
-    /*@Bean //실제 인증을 한 이후에 인증이 완료되면 Authentication객체를 반환을 위한 bean등록
+
+    @Bean //실제 인증을 한 이후에 인증이 완료되면 Authentication객체를 반환을 위한 bean등록
     public DaoAuthenticationProvider authenticationProvider(MemberService memberService) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(memberService);
         authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
         return authenticationProvider;
-    }*/
+    }
 }

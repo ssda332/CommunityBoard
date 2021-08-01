@@ -7,12 +7,9 @@ import java.util.Collection;
 
 public class MyUserDetails implements UserDetails {
 
-    private Member member;
+    private String username;
+    private String pwd;
     private Collection <? extends GrantedAuthority> authorities;
-
-    public MyUserDetails(Member member) {
-        this.member = member;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,12 +18,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.pwd;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
