@@ -32,15 +32,15 @@
 
 <div class="container">
 
-    <form action="item.html" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <form action="item.html" th:action th:object="${loginForm}" method="post">
 
         <h2 >Login</h2>
 
         <div style="margin: 15px;">
-            <label for="loginId">로그인 ID</label>
-            <input style="width: 200px; margin: auto;" type="text" id="loginId" class="form-control" name="username"
-                   th:field="*{loginId}">
-            <div class="field-error" th:errors="*{loginId}" />
+            <label for="username">로그인 ID</label>
+            <input style="width: 200px; margin: auto;" type="text" id="username" class="form-control" name="username"
+                   th:field="*{username}">
+            <div class="field-error" th:errors="*{username}" />
         </div>
 
         <div style="margin: 10px;">

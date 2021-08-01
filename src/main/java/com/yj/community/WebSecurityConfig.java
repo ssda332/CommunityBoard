@@ -46,18 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
-                .and()
-
-                .formLogin()
-                .loginPage("/members/add")
-                .permitAll()
-                .and()
-
-                .logout()
-                .permitAll();*/
         http
                 .authorizeRequests() // 6
                 .antMatchers("/members/login", "/members/add", "/").permitAll() // 누구나 접근 허용
@@ -66,10 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .formLogin() // 7
-                .loginPage("/login") // 로그인 페이지 링크
-                .loginProcessingUrl("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .loginPage("/members/login") // 로그인 페이지 링크
+                .loginProcessingUrl("/members/login")
                 .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
@@ -91,15 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider(memberService));
+        auth.userDetailsService(memberService);
     }
 
-
-    @Bean //실제 인증을 한 이후에 인증이 완료되면 Authentication객체를 반환을 위한 bean등록
-    public DaoAuthenticationProvider authenticationProvider(MemberService memberService) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(memberService);
-        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        return authenticationProvider;
-    }
 }

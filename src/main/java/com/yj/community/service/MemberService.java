@@ -48,14 +48,13 @@ public class MemberService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username : "+ username );
-        Optional<MyUserDetails> loginId = memberRepository.findByUsername(username);
-        MyUserDetails m = loginId.get();
 
-        if(m == null) {
+        MyUserDetails loginId = memberRepository.findByUsername(username);
+
+        if(loginId == null) {
             throw new UsernameNotFoundException("User "+username+" Not Found!");
         }else {
-            return m;
+            return loginId;
         }
 
     }

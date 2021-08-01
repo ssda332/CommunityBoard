@@ -8,7 +8,9 @@ import java.util.Collection;
 public class MyUserDetails implements UserDetails {
 
     private String username;
-    private String pwd;
+    private String password;
+    private String role;
+
     private Collection <? extends GrantedAuthority> authorities;
 
     @Override
@@ -17,13 +19,17 @@ public class MyUserDetails implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return this.pwd;
+    public String getUsername() {
+        return this.username;
     }
 
     @Override
-    public String getUsername() {
-        return this.username;
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     @Override
