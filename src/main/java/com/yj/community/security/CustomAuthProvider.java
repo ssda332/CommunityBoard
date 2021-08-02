@@ -1,6 +1,7 @@
 package com.yj.community.security;
 
 import com.yj.community.domain.member.MyUserDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,14 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class CustomAuthProvider implements AuthenticationProvider {
 
-    @Qualifier("memberService")
-    @Autowired
-    private UserDetailsService userDetailsService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

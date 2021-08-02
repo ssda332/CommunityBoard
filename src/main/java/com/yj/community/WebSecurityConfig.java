@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
-    MemberService memberService;
+    private MemberService memberService;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
