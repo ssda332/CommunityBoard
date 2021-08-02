@@ -28,11 +28,16 @@ public class MemberService implements UserDetailsService{
 
     @Transactional
     public int save(Member member) {
-        // validateDuplicateMember(member); // 중복 회원 검증
+        int result = 0;
+
+        if (memberRepository.findByUsername(member.getLoginId()) != null) {
+            result = 2;
+            return result;
+        }
 
         member.setPassword(passwordEncoder.encode(member.getPassword())); // 비밀번호 암호화
 
-        int result = memberRepository.save(member);
+        result = memberRepository.save(member);
         if (result > 0) {
             memberRepository.grantRole();
         }

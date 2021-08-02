@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,15 +41,29 @@ public class MemberController {
 
         int result = memberService.save(member);
 
+        if (result == 2) {
+            FieldError fieldError = new FieldError("member", "loginId", "이미 존재하는 아이디입니다.");
+            bindingResult.addError(fieldError);
+            return "members/signUp";
+        }
+
         return "redirect:/";
 
     }
 
-    @GetMapping("/login")
-    public String signInForm(@ModelAttribute("loginForm") LoginForm form) {
+    @RequestMapping("/login")
+    public String signInForm(HttpServletRequest request) {
+
+        String uri = request.getHeader("Referer");
+        if (!uri.contains("/loginView")) {
+            request.getSession().setAttribute("prevPage",
+                    request.getHeader("Referer"));
+        }
 
         return "/members/signIn";
     }
+
+    // 시큐리티 처리 전 로그인 코드
 
     //@PostMapping("/login")
     /*public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
@@ -75,30 +90,12 @@ public class MemberController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:" + redirectURL;
-    }*/
-
-    //@PostMapping("/login")
-    public String loginV2(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
-                        @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails myUserDetails = (MyUserDetails) auth.getPrincipal();
-        //위의 두줄로 로그인 한 계정이 어떤 권한을 가지고 있는지 이름은 무었인지를 가져옵니다
-        System.out.println("username : "+myUserDetails.getUsername());
-        HttpSession session = request.getSession();
-
-        System.out.println("username : "+myUserDetails.getUsername());
-        System.out.println("authorities : "+myUserDetails.getAuthorities());
-
-        session.setAttribute("member", myUserDetails.getUsername());
-        //session.setAttribute("principal", myUserDetails.getAuthorities());
-
-
-        return "redirect:" + redirectURL;
     }
 
+    */
+
     @PostMapping("/logout")
-    public String logoutV3(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

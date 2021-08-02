@@ -33,20 +33,10 @@ public class CustomAuthProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        System.out.println("인증Provider 진입");
-
-
         String id = authentication.getName();
         String pwd = (String) authentication.getCredentials();
 
-        System.out.println("id = " + id);
-        System.out.println("pwd = " + pwd);
-
-
         MyUserDetails user = (MyUserDetails) userDetailsService.loadUserByUsername(id);
-
-        System.out.println(user.getRole());
-
 
         if (!bCryptPasswordEncoder.matches(pwd, user.getPassword())) {
             throw new BadCredentialsException("비밀번호가 맞지않습니다.");

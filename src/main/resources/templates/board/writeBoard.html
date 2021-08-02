@@ -32,7 +32,7 @@
     <h2>게시글 작성</h2>
     <hr style="height: 2px; background-color: black;">
     <form method="post" action="" th:action th:object="${board}">
-        
+
 
         <input type="hidden" class="form-control" value="ok" name="writer" th:value="${#authentication.name}">
 

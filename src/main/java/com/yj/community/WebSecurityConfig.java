@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests() // 6
-                .antMatchers("/members/login", "/members/add", "/").permitAll() // 누구나 접근 허용
+                .antMatchers("/members/login", "/members/add", "/", "/board/list", "/board/search").permitAll() // 누구나 접근 허용
                 .antMatchers("/admin").hasRole("ADMIN") // ADMIN만 접근 가능 USER면 USER,ADMIN만 접속 가능
                 .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
                 .and()
@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/members/login") // 로그인 페이지 링크
                 .loginProcessingUrl("/members/login")
                 .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
+                .failureUrl("/members/login?error=true")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .and()

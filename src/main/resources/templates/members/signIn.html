@@ -32,27 +32,28 @@
 
 <div class="container">
 
-    <form action="item.html" th:action th:object="${loginForm}" method="post">
+    <form action="item.html" th:action method="post">
 
         <h2 >Login</h2>
 
         <div style="margin: 15px;">
             <label for="username">로그인 ID</label>
             <input style="width: 200px; margin: auto;" type="text" id="username" class="form-control" name="username"
-                   th:field="*{username}">
-            <div class="field-error" th:errors="*{username}" />
+                   >
+
         </div>
 
         <div style="margin: 10px;">
             <label for="password">비밀번호</label>
             <input style="width: 200px; margin: auto;" type="password" id="password" class="form-control" name="password"
-                   th:field="*{password}">
-            <div class="field-error" th:errors="*{password}" />
+                   >
+
         </div>
 
-        <div th:if="${#request.getAttribute('failAlert')} != null">
-            <p class="field-error" th:text="${#request.getAttribute('failAlert')}">전체 오류 메시지</p>
+        <div th:if="${#request.getAttribute('loginFailMsg')} != null">
+            <p class="field-error" th:text="${#request.getAttribute('loginFailMsg')}">전체 오류 메시지</p>
         </div>
+        <!-- 스프링 시큐리티로 리팩토링해서 에러 메세지에 대한 처리 따로 필요함 -->
 
         <button type="submit" class="btn btn-primary" style="width: 200px; margin-top: 20px;">로그인</button>
         <button type="button" class="btn btn-primary" style="width: 200px; margin-top: 20px;" th:onclick="|location.href='@{/}'|">메인으로</button>
