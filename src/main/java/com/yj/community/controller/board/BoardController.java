@@ -1,12 +1,9 @@
 package com.yj.community.controller.board;
 
-import com.yj.community.domain.board.Board;
-import com.yj.community.domain.board.BoardInfo;
-import com.yj.community.domain.board.BoardUpdateForm;
-import com.yj.community.domain.board.BoardWriteForm;
+import com.yj.community.domain.board.*;
 import com.yj.community.domain.board.pagination.PageInfo;
 import com.yj.community.domain.board.pagination.Pagination;
-import com.yj.community.domain.member.LoginForm;
+import com.yj.community.domain.board.search.Search;
 import com.yj.community.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 
 @Slf4j
@@ -46,6 +41,29 @@ public class BoardController {
         ArrayList<BoardInfo> boardList = boardService.getBoardList(pi);
 
         log.info("getBoardList = {}", boardList);
+
+        if(boardList != null) {
+            mv.addObject("list", boardList);
+            mv.addObject("pi", pi);
+            mv.setViewName("board/boardList");
+        } else {
+            mv.setViewName("home");
+        }
+
+        return mv;
+    }
+
+    @GetMapping("search")
+    public ModelAndView search(ModelAndView mv, @ModelAttribute Search search,
+                               @RequestParam(value="currentPage", required=false, defaultValue="1") Integer page) {
+
+        int currentPage = page != null ? page : 1;
+
+        int searchListCount = boardService.selectSearchListCount(search); // 전체 게시글 갯수
+
+        PageInfo pi = Pagination.getPageInfo(currentPage, searchListCount);
+
+        ArrayList<BoardInfo> boardList = boardService.getBoardSearchList(pi, search);
 
         if(boardList != null) {
             mv.addObject("list", boardList);

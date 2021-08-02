@@ -3,11 +3,16 @@ package com.yj.community.controller;
 import com.yj.community.SessionConst;
 import com.yj.community.domain.member.LoginForm;
 import com.yj.community.domain.member.Member;
+import com.yj.community.domain.member.MyUserDetails;
 import com.yj.community.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,18 +41,33 @@ public class MemberController {
 
         int result = memberService.save(member);
 
+        if (result == 2) {
+            FieldError fieldError = new FieldError("member", "loginId", "이미 존재하는 아이디입니다.");
+            bindingResult.addError(fieldError);
+            return "members/signUp";
+        }
+
         return "redirect:/";
 
     }
 
-    @GetMapping("login")
-    public String signInForm(@ModelAttribute("loginForm") LoginForm form) {
+    @RequestMapping("/login")
+    public String signInForm(HttpServletRequest request) {
+
+        String uri = request.getHeader("Referer");
+        if (!uri.contains("/loginView")) {
+            request.getSession().setAttribute("prevPage",
+                    request.getHeader("Referer"));
+        }
 
         return "members/signIn";
     }
 
-    @PostMapping("login")
-    public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
+
+    // 시큐리티 처리 전 로그인 코드
+
+    //@PostMapping("/login")
+    /*public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
@@ -73,8 +93,11 @@ public class MemberController {
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("logout")
-    public String logoutV3(HttpServletRequest request) {
+
+    */
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

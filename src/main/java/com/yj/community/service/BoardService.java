@@ -1,10 +1,8 @@
 package com.yj.community.service;
 
-import com.yj.community.domain.board.Board;
-import com.yj.community.domain.board.BoardInfo;
-import com.yj.community.domain.board.BoardUpdateForm;
-import com.yj.community.domain.board.BoardWriteForm;
+import com.yj.community.domain.board.*;
 import com.yj.community.domain.board.pagination.PageInfo;
+import com.yj.community.domain.board.search.Search;
 import com.yj.community.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
@@ -27,6 +25,13 @@ public class BoardService {
         return boardRepository.getBoardList(rowBounds);
     }
 
+    public ArrayList<BoardInfo> getBoardSearchList(PageInfo pi, Search search) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+
+        return boardRepository.getBoardSearchList(rowBounds, search);
+    }
+
     public int write(BoardWriteForm board) {
 
         return boardRepository.write(board);
@@ -34,6 +39,10 @@ public class BoardService {
 
     public int selectListCount() {
         return boardRepository.selectListCount();
+    }
+
+    public int selectSearchListCount(Search search) {
+        return boardRepository.selectSearchListCount(search);
     }
 
     public Board findById(long seq, boolean flag) {
@@ -54,4 +63,5 @@ public class BoardService {
 
         return boardRepository.deleteBoard(seq);
     }
+
 }

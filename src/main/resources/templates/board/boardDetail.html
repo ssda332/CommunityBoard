@@ -50,9 +50,9 @@
     </table>
     <!-- th:onclick="|location.href='@{/board/list}'|" -->
     <div>
-        <button th:if="${session.loginMember.getName()} eq ${board.getRegisterMember()}"
+        <button th:if="${#authentication.name} eq ${board.getRegisterMember()}"
                 th:onclick="|location.href='@{|/board/update/${board.getSeq()}|}'|" type="button" class="btn btn-primary">수정하기</button>
-        <button th:if="${session.loginMember.getName()} eq ${board.getRegisterMember()}"
+        <button th:if="${#authentication.name} eq ${board.getRegisterMember()}"
                 th:onclick="|location.href='@{|/board/delete/${board.getSeq()}|}'|" type="button" class="btn btn-primary">삭제하기</button>
         <button th:onclick="|location.href='@{/board/list}'|" style="float: right;" type="button" class="btn btn-primary">목록으로</button>
     </div>
@@ -89,7 +89,7 @@
 
             $("#write-comment").on("click", function(){
                 var content = $(".write-comment-area").val();
-                var form = {"writer" : [[${session.loginMember.getName()}]], "content" : content}
+                var form = {"writer" : [[${#authentication.name}]], "content" : content}
 
                 console.log(form);
                 // 댓글 작성하기
@@ -143,7 +143,7 @@
                             str += '<td colspan="6" style="width: 60%;"><div id="context-area-'+data[i].seq+'">' + data[i].content + '</div></td>';
                             str += '<td style="text-align: right;"><span>' + data[i].regDate + '</span>';
 
-                            if(data[i].writer == [[${session.loginMember.getName()}]]) {
+                            if(data[i].writer == [[${#authentication.name}]]) {
                                 /* str += '<div class="btn-group me-2 comment-control" role="group" aria-label="First group">';
                                 str += '<input id="comment-nummber" type="hidden" value="' + data[i].seq + '">'; */
                                 str += '<div id="comment-button-area-'+data[i].seq+'">';
@@ -188,7 +188,7 @@
         function updateComment(seq) {
 
             var ulink = "comment/update/" + seq;
-            var context = {"writer" : [[${session.loginMember.getName()}]], "content" : document.getElementById("comment-update-area-" + seq).value};
+            var context = {"writer" : [[${#authentication.name}]], "content" : document.getElementById("comment-update-area-" + seq).value};
 
             $.ajax({
                 url: ulink,
