@@ -51,7 +51,7 @@ public class MemberController {
 
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("login")
     public String signInForm(HttpServletRequest request) {
 
         String uri = request.getHeader("Referer");
@@ -96,7 +96,7 @@ public class MemberController {
 
     */
 
-    @PostMapping("/logout")
+    @PostMapping("logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
