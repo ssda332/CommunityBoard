@@ -50,7 +50,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         }*/
 
         //
-        if (uri.equals("http://localhost:9091/members/login")) {
+
+        if (uri.substring(uri.length()-5, uri.length()).equals("login")) {
             uri = "/";
         }
 
