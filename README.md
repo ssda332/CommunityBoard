@@ -39,6 +39,3 @@
 * 클라우드 서버를 통한 웹 서비스 배포
 
 
-## 구동 화면
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e00010b8-842a-4c6e-bab5-5d8507e54c7d/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e00010b8-842a-4c6e-bab5-5d8507e54c7d/Untitled.png)
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/629ace99-1f00-41a3-bfb8-fe268d2900f8/게시판2.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/629ace99-1f00-41a3-bfb8-fe268d2900f8/게시판2.jpg)
