@@ -41,17 +41,19 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
         } else if (prevPage != null && !prevPage.equals("")) {
             uri = prevPage;
-        }
 
-        /*// 세션 Attribute 확인
-        Enumeration<String> list = request.getSession().getAttributeNames();
+        }
+        // 세션 Attribute 확인
+        /*Enumeration<String> list = request.getSession().getAttributeNames();
         while (list.hasMoreElements()) {
-            System.out.println(list.nextElement());
+            System.out.println("세션 Attribute 확인 : " + list.nextElement());
         }*/
-        if (uri.equals("http://localhost:9091/members/login")) {
+
+        //
+
+        if (uri.substring(uri.length()-5, uri.length()).equals("login")) {
             uri = "/";
         }
-
 
         response.sendRedirect(uri);
     }

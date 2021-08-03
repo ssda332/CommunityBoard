@@ -2,6 +2,7 @@ package com.yj.community.security;
 
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,9 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
 
         } else if(exception instanceof CredentialsExpiredException) {
             request.setAttribute("loginFailMsg", "비밀번호가 만료되었습니다.");
+
+        } else if(exception instanceof UsernameNotFoundException) {
+            request.setAttribute("loginFailMsg", "아이디 또는 비밀번호가 틀립니다.");
         }
 
         // 로그인 페이지로 다시 포워딩
