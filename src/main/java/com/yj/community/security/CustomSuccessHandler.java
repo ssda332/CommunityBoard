@@ -43,11 +43,15 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             uri = prevPage;
         }
 
-        // 세션 Attribute 확인
+        /*// 세션 Attribute 확인
         Enumeration<String> list = request.getSession().getAttributeNames();
         while (list.hasMoreElements()) {
             System.out.println(list.nextElement());
+        }*/
+        if (uri.equals("http://localhost:9091/members/login")) {
+            uri = "/";
         }
+
 
         response.sendRedirect(uri);
     }
