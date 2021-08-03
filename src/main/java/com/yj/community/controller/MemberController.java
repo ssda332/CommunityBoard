@@ -20,7 +20,7 @@ public class MemberController {
 
     private MemberService memberService;
 
-    public MemberController(@Lazy MemberService memberService) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
