@@ -1,15 +1,9 @@
 package com.yj.community.controller;
 
-import com.yj.community.SessionConst;
-import com.yj.community.domain.member.LoginForm;
 import com.yj.community.domain.member.Member;
-import com.yj.community.domain.member.MyUserDetails;
 import com.yj.community.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,11 +15,14 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("members")
 public class MemberController {
 
-    private final MemberService memberService;
+    private MemberService memberService;
+
+    public MemberController(@Lazy MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @GetMapping("add")
     public String signUp(@ModelAttribute("member") Member member) {
