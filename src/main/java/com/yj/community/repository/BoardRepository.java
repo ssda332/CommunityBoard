@@ -1,7 +1,6 @@
 package com.yj.community.repository;
 
 import com.yj.community.domain.board.*;
-import com.yj.community.domain.board.pagination.PageInfo;
 import com.yj.community.domain.board.search.Search;
 import com.yj.community.domain.board.search.SearchQuery;
 import org.apache.ibatis.annotations.*;
